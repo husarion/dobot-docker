@@ -1,0 +1,15 @@
+services:
+  dobot_ros:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dobot_ros
+    network_mode: host
+    ipc: host
+    environment:
+      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID}
+      - IP_address=10.15.20.4
+      - DOBOT_TYPE=nova5
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+    command: > 
+      ros2 launch dobot_bringup_v3 dobot_bringup_ros2.launch.py
