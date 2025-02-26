@@ -27,4 +27,12 @@ RUN apt-get update && \
 RUN source /opt/ros/$ROS_DISTRO/setup.sh && \
     colcon build --symlink-install
 
-# RUN apt-get update && apt-get install -y ros-${ROS_DISTRO}-robotiq-controllers
+RUN git clone -b humble https://github.com/PickNikRobotics/ros2_robotiq_gripper.git src/ros2_robotiq_gripper
+
+RUN apt-get update && \
+    vcs import src < src/ros2_robotiq_gripper/ros2_robotiq_gripper.humble.repos && \
+    rosdep update --rosdistro $ROS_DISTRO && \
+    rosdep install --from-paths src/ -y -i -r; exit 0
+
+RUN source /opt/ros/$ROS_DISTRO/setup.sh && \
+    colcon build --symlink-install

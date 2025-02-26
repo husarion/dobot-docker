@@ -13,5 +13,21 @@ ros2 service call /dobot_bringup_v3/srv/EnableRobot dobot_msgs_v3/srv/EnableRobo
 ros2 service call /dobot_bringup_v3/srv/RelMovJ dobot_msgs_v3/srv/RelMovJ "{offset1: 10.0}"
 ```
 
-Known errors:
+## Gripper
+
+Launches automatically
+
+Close gripper
+
+```
+ros2 action send_goal /robotiq_gripper_controller/gripper_cmd control_msgs/action/GripperCommand "{command: {position: 0.85, max_effort: 1.0}}"
+```
+
+Open gripper
+
+```
+ros2 action send_goal /robotiq_gripper_controller/gripper_cmd control_msgs/action/GripperCommand "{command: {position: 0.0, max_effort: 1.0}}"
+```
+
+## Known errors:
 Missing `PowerOn` service. After triggering e-stop there is no way to power up arm again from terminal.
