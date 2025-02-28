@@ -5,6 +5,9 @@ Building a Docker image for ROS 2 driver for Dobot manipulators
 
 Build and run dobot arm  with gripper:
 
+>[!NOTE]
+> When running with Husarion UGV platform, make sure that software E-stop is released before starting Dobot arm software.
+
 ```bash
 docker compose up
 ```
