@@ -3,13 +3,30 @@ Building a Docker image for ROS 2 driver for Dobot manipulators
 
 ## Run
 
-Build and run dobot arm  with gripper:
+### Integration with Husarion UGV
+
+Firstly release Husarion UGV E-Stop.
+
+```bash
+ros2 service call /panther/hardware/e_stop_release std_srvs/srv/Trigger
+```
+
+Then enable aux power for the manipulator.
+
+```bash
+ros2 service call /panther/hardware/aux_power_enable std_srvs/srv/SetBool "data: true"
+```
+
+### Run Dobot
+
+Build and run dobot arm with gripper:
 
 ```bash
 docker compose up
 ```
 
-## Arm
+### Arm configuration
+
 
 Enable arm:
 ```bash
@@ -33,7 +50,7 @@ Other usefull services for movement:
 /dobot_bringup_v3/srv/RelMovL
 ```
 
-## Gripper
+### Gripper
 
 Launches automatically
 
@@ -49,7 +66,7 @@ Open gripper:
 ros2 action send_goal /robotiq_gripper_controller/gripper_cmd control_msgs/action/GripperCommand "{command: {position: 0.0, max_effort: 1.0}}"
 ```
 
-## Known errors:
+### Known errors:
 
 Missing `PowerOn` service for arm. After triggering e-stop there is no way to power up arm again from terminal.
 
